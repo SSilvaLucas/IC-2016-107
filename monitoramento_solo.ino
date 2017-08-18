@@ -12,6 +12,8 @@
 int valor_analogico;
 int pino_sensor_nivel = 9;
 
+int porta_LDR = A4;
+
 DHT dht(DHTPIN, DHTTYPE);
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
@@ -41,6 +43,24 @@ void setup()
 }
 
 void loop(){
+  int status_LDR = analogRead(porta_LDR);
+  Serial.println(status_LDR);
+  if(status_LDR>940){
+    lcd.clear();
+    lcd.setCursor(5,0);
+    lcd.print("Baixa");
+    lcd.setCursor(2,1);
+    lcd.print("Luminosidade");
+    delay(3000);
+  }else{
+    lcd.clear();
+    lcd.setCursor(6,0);
+    lcd.print("Boa");
+    lcd.setCursor(2,1);
+    lcd.print("Luminosidade");
+    delay(3000);
+  }
+  
   int status_reservatorio = digitalRead(pino_sensor_nivel);
   Serial.print("Estado reservatorio : ");
   if(status_reservatorio==1){
@@ -52,6 +72,7 @@ void loop(){
     lcd.print("Vazio!");
     delay(3000);
   }
+  
   valor_analogico = analogRead(pino_sinal_analogico);
 
   //Solo umido
