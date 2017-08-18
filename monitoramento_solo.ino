@@ -45,7 +45,7 @@ void setup()
 void loop(){
   int status_LDR = analogRead(porta_LDR);
   Serial.println(status_LDR);
-  if(status_LDR>940){
+  if(status_LDR>930){
     lcd.clear();
     lcd.setCursor(5,0);
     lcd.print("Baixa");
