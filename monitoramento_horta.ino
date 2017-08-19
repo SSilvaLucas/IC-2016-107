@@ -40,6 +40,15 @@ byte simbolo_folha[8] ={ B00000100,
                          B00000100,
                          B00000100,};
 
+byte simbolo_gota[8] ={  B00000100,
+                         B00000100,
+                         B00001110,
+                         B00011111,
+                         B00011111,
+                         B00011111,
+                         B00011111,
+                         B00001110,};                         
+
 int porta_rele1 = 10;
 
 void setup()
@@ -58,11 +67,12 @@ void setup()
   lcd.clear();
   lcd.createChar(0, simbolo_grau);
   lcd.createChar(1, simbolo_folha);
+  lcd.createChar(2, simbolo_gota);
 
   lcd.clear();
   lcd.setCursor(3,0);
   lcd.print("Bem Vindo!");
-  for(int i=1; i<=13; i+=2){
+  for(int i=0; i<=16; i+=2){
     lcd.setCursor(i,1);
     lcd.write((byte)1);
   }
@@ -224,12 +234,27 @@ void exibe_status_irrigando(){
   lcd.clear();
   lcd.setCursor(3,0);
   lcd.print("Solo Seco!");
-  lcd.setCursor(1,1);
+  lcd.setCursor(0,1);
   lcd.print("Irrigando Solo");
-  delay(1500);
+  pinga_gota();
+  delay(1000);
   lcd.clear();
   lcd.setCursor(2,0);
-  lcd.print("Bomba Ligada!");
-  delay(1500);
+  lcd.print("Bomba Ligada");
+  pinga_gota();
+  delay(1000);
+}
+
+void pinga_gota(){
+  lcd.setCursor(15,0);
+  lcd.write((byte)2);
+  delay(450);
+  lcd.setCursor(15,0);
+  lcd.print(".");
+  lcd.setCursor(15,1);
+  lcd.write((byte)2);
+  delay(450);
+  lcd.setCursor(15,1);
+  lcd.print(".");
 }
 
