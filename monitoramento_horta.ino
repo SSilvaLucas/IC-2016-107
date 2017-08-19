@@ -62,20 +62,10 @@ void setup()
   lcd.clear();
   lcd.setCursor(3,0);
   lcd.print("Bem Vindo!");
-  lcd.setCursor(1,1);
-  lcd.write((byte)1);
-  lcd.setCursor(3,1);
-  lcd.write((byte)1);
-  lcd.setCursor(5,1);
-  lcd.write((byte)1);
-  lcd.setCursor(7,1);
-  lcd.write((byte)1);
-  lcd.setCursor(9,1);
-  lcd.write((byte)1);
-  lcd.setCursor(11,1);
-  lcd.write((byte)1);
-  lcd.setCursor(13,1);
-  lcd.write((byte)1);
+  for(int i=1; i<=13; i+=2){
+    lcd.setCursor(i,1);
+    lcd.write((byte)1);
+  }
   delay(3000);
   lcd.clear();
   lcd.setCursor(3,0);
