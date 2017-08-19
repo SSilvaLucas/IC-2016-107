@@ -1,6 +1,6 @@
 /*
-Made by Lucas Silva
-License: none (public domain)
+* Made by Lucas Silva
+* License: none (public domain)
 */
 
 #include <LiquidCrystal.h>
@@ -116,8 +116,6 @@ void loop(){
 }
 
 
-
-
 void apagaleds(){
   digitalWrite(pino_led_vermelho, LOW);
   digitalWrite(pino_led_amarelo, LOW);
@@ -134,19 +132,20 @@ void desliga_bomba(){
 
 void verifica_luminosidade(){
   int status_LDR = analogRead(porta_LDR);
-  Serial.println(status_LDR);
   if(status_LDR>930){
     lcd.clear();
     lcd.setCursor(5,0);
     lcd.print("Baixa");
     lcd.setCursor(2,1);
     lcd.print("Luminosidade");
+    Serial.println("Baixa Luminosidade");
   }else{
     lcd.clear();
     lcd.setCursor(6,0);
     lcd.print("Boa");
     lcd.setCursor(2,1);
     lcd.print("Luminosidade");
+    Serial.println("Boa Luminosidade");
   }
 }
 
@@ -161,6 +160,7 @@ void verifica_reservatorio(){
     lcd.setCursor(5,1);
     lcd.print("Vazio!");
   }else{
+    Serial.println("Reservatório estável");
     lcd.clear();
     lcd.setCursor(2,0);
     lcd.print("Reservatorio");
@@ -231,6 +231,7 @@ void verifica_ar(){
 }
 
 void exibe_status_irrigando(){
+  Serial.println("Bomba ligada. O solo está sendo irrigado");
   lcd.clear();
   lcd.setCursor(3,0);
   lcd.print("Solo Seco!");
