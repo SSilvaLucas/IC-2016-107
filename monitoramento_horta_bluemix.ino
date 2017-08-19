@@ -36,15 +36,6 @@ DHT dht(DHTPIN, DHTTYPE);
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
-byte simbolo_grau[8] = { B00001100,
-                         B00010010,
-                         B00010010,
-                         B00001100,
-                         B00000000,
-                         B00000000,
-                         B00000000,
-                         B00000000,};
-
 byte simbolo_folha[8] ={ B00000100,
                          B00001010,
                          B00010001,
@@ -54,15 +45,6 @@ byte simbolo_folha[8] ={ B00000100,
                          B00000100,
                          B00000100,};
 
-byte simbolo_gota[8] ={  B00000100,
-                         B00000100,
-                         B00001110,
-                         B00011111,
-                         B00011111,
-                         B00011111,
-                         B00011111,
-                         B00001110,};
-
 /* -- Para o sensor do solo -- */
 #define pino_sensor_solo A0
 #define pino_led_vermelho 8
@@ -70,36 +52,22 @@ byte simbolo_gota[8] ={  B00000100,
 #define pino_led_verde 7
 int valor_solo;
 
-/* -- Para o sensor de nível -- */
-int pino_sensor_nivel = 9;
-
 /* -- Para o sensor LDR -- */
 int porta_LDR = A4;
-
-/* -- Para o relé/acionamento da bomba -- */
-int porta_rele1 = 10;
-
-
 
 void setup() {
   Serial.begin(9600);
 
   /* -- Definindo portas para os sensores -- */
-  pinMode(pino_sensor_nivel, INPUT);
   pinMode(pino_sensor_solo, INPUT);
   pinMode(pino_led_vermelho, OUTPUT);
   pinMode(pino_led_amarelo, OUTPUT);
   pinMode(pino_led_verde, OUTPUT);
-  pinMode(porta_rele1, OUTPUT); 
-
-  digitalWrite(porta_rele1, HIGH);
 
   /* -- Criando símbolos par ao display -- */
   lcd.begin(16,2);
   lcd.clear();
-  lcd.createChar(0, simbolo_grau);
   lcd.createChar(1, simbolo_folha);
-  lcd.createChar(2, simbolo_gota);
 
   /* -- Seção de boas vindas -- */
   lcd.clear();
@@ -117,15 +85,15 @@ void setup() {
   lcd.print("Lucas S. Silva");
   delay(4000);
   lcd.clear();
-  lcd.setCursor(3,0);
-  lcd.print("Iniciando");
-  lcd.setCursor(3,1);
-  lcd.print("Sistema...");
+  lcd.setCursor(0,0);
+  lcd.print("conectando-se ao");
+  lcd.setCursor(1,1);
+  lcd.print("bluemix IOT...");
   delay(2000);
   lcd.clear();
   
   Ethernet.begin(mac);
-  delay(2000);
+  delay(1000);
 }
 
 void loop() {
