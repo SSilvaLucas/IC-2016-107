@@ -1,3 +1,8 @@
+/*
+Made by Lucas Silva
+License: none (public domain)
+*/
+
 #include <LiquidCrystal.h>
 #include <DHT.h>
 
@@ -26,6 +31,15 @@ byte simbolo_grau[8] ={ B00001100,
                         B00000000,
                         B00000000,};
 
+byte simbolo_folha[8] ={ B00000100,
+                         B00001010,
+                         B00010001,
+                         B00010101,
+                         B00010101,
+                         B00001010,
+                         B00000100,
+                         B00000100,};
+
 int porta_rele1 = 10;
 
 void setup()
@@ -43,6 +57,38 @@ void setup()
   lcd.begin(16,2);
   lcd.clear();
   lcd.createChar(0, simbolo_grau);
+  lcd.createChar(1, simbolo_folha);
+
+  lcd.clear();
+  lcd.setCursor(3,0);
+  lcd.print("Bem Vindo!");
+  lcd.setCursor(1,1);
+  lcd.write((byte)1);
+  lcd.setCursor(3,1);
+  lcd.write((byte)1);
+  lcd.setCursor(5,1);
+  lcd.write((byte)1);
+  lcd.setCursor(7,1);
+  lcd.write((byte)1);
+  lcd.setCursor(9,1);
+  lcd.write((byte)1);
+  lcd.setCursor(11,1);
+  lcd.write((byte)1);
+  lcd.setCursor(13,1);
+  lcd.write((byte)1);
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(3,0);
+  lcd.print("Feito por:");
+  lcd.setCursor(1,1);
+  lcd.print("Lucas S. Silva");
+  delay(4000);
+  lcd.clear();
+  lcd.setCursor(3,0);
+  lcd.print("Iniciando");
+  lcd.setCursor(3,1);
+  lcd.print("Sistema...");
+  delay(2000);
 }
 
 void loop(){
