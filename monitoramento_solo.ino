@@ -19,13 +19,15 @@ DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 byte simbolo_grau[8] ={ B00001100,
-                B00010010,
-                B00010010,
-                B00001100,
-                B00000000,
-                B00000000,
-                B00000000,
-                B00000000,};
+                        B00010010,
+                        B00010010,
+                        B00001100,
+                        B00000000,
+                        B00000000,
+                        B00000000,
+                        B00000000,};
+
+int porta_rele1 = 10;
 
 void setup()
 {
@@ -35,6 +37,7 @@ void setup()
   pinMode(pino_led_amarelo, OUTPUT);
   pinMode(pino_led_verde, OUTPUT);
   pinMode(pino_sensor_nivel, INPUT);
+  pinMode(porta_rele1, OUTPUT); 
 
   Serial.begin(9600);
   lcd.begin(16,2);
@@ -43,6 +46,17 @@ void setup()
 }
 
 void loop(){
+  digitalWrite(porta_rele1, LOW);
+  lcd.clear();
+  lcd.setCursor(2,0);
+  lcd.print("Bomba Ligada!");
+  delay(5000);
+  digitalWrite(porta_rele1, HIGH);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Bomba Desligada!");
+  delay(2000);
+  
   int status_LDR = analogRead(porta_LDR);
   Serial.println(status_LDR);
   if(status_LDR>930){
@@ -81,8 +95,8 @@ void loop(){
     apagaleds();
     digitalWrite(pino_led_verde, HIGH);
     lcd.clear();
-    lcd.setCursor(2,0);
-    lcd.print("Solo Umido!");
+    lcd.setCursor(3,0);
+    lcd.print("Solo Umido");
     delay(3000);
   }
   
